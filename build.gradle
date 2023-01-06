@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'application'
+    id "io.freefair.lombok" version "6.6.1"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext{
+    helidonversion = '3.0.2'
+}
+dependencies {
+    implementation platform("io.helidon:helidon-dependencies:${project.helidonversion}")
+    implementation 'org.testng:testng:7.1.0'
+
+
+    implementation 'io.helidon.microprofile.server:helidon-microprofile-server'
+    implementation 'org.glassfish.jersey.media:jersey-media-json-binding'
+
+    implementation group: 'org.jdbi', name: 'jdbi3-sqlobject', version: '3.36.0'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '9.4-1206-jdbc42'
+    implementation group: 'org.jdbi', name: 'jdbi3-bom', version: '3.36.0', ext: 'pom'
+    implementation group: 'org.jdbi', name: 'jdbi3-core', version: '3.36.0'
+
+    //implementation group: 'hikari-cp', name: 'hikari-cp', version: '3.0.1'
+    implementation group: 'io.volcanolabs', name: 'rds-iam-hikari-datasource', version: '2.0.0'
+    implementation 'me.moros:Storage:1.0.0'
+
+    runtimeOnly 'org.jboss:jandex'
+}
+sourceSets {
+    main {
+        output.resourcesDir = file ("${buildDir}/classes/java/main")
+    }
+
+}
+test {
+    useJUnitPlatform()
+}
